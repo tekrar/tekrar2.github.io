@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>ISS</title>
+	<link rel="stylesheet" href="css/themes/default/jquery.mobile-1.4.5.min.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+	<script src="js/jquery.js"></script>
+	
+	<script src="js/jquery.mobile-1.4.5.min.js"></script>
+</head>
+<body>
+<div data-role="page" class="jqm-demos jqm-home">
+
+	<div data-role="header" class="jqm-header">
+		
+		<h1>ISS</h1>
+		
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content jqm-content">
+ <div id = "contenuti"> </div>
+    <script>
+	function testJSON(){
+     var dati = $.getJSON("https://api.breakingapi.com/news?q=stazionespaziale&type=headlines&locale=it-IT&api_key=D21ADF8FE35F41659D5BE9A3D164BA91");
+     return dati; 
+  }
+  
+  $.when(testJSON()).then(function(jsondata){
+  
+       var array = jsondata.articles; 
+	   
+	   for(var i = 0; i < array.length; i++){
+	   
+	      var link = array[i].link; 
+	      var title = array[i].title; 
+	      var snippet = array[i].snippet; 
+	      
+		  document.getElementById("contenuti").innerHTML += "<h5>"+title+"</h5><p>"+snippet+"</p> <a href = \""+link+"\"> Leggi articolo!</a> <hr>"; 
+	   
+	   }
+	   
+  });
+	</script>
+		
+	</div>
+
+      
+	<div data-role="footer">
+      <nav data-role="navbar">
+            <ul>
+                <li><a href="index.html" class="ui-btn ui-icon-plus ui-btn-icon-top">Home</a></li>
+                <!--<li><a href="#" class="ui-btn ui-icon-minus ui-btn-icon-top ui-btn-active ui-state-persist">StatsR0</a></li>-->
+                <li><a href="mappa.html" class="ui-btn ui-icon-check ui-btn-icon-top">Mappa</a></li>
+                <li><a href="news.html" class="ui-btn ui-icon-grid ui-btn-icon-top">News</a></li>
+            </ul>
+      </nav>
+    </div>  
+
+
+</div><!-- /page -->
+
+</body>
+</html>
